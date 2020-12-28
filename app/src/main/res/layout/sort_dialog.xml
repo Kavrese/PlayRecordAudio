@@ -39,7 +39,77 @@
         android:layout_height="match_parent"
         android:background="@color/alpha_grey"
         android:orientation="vertical"
+        android:weightSum="100"
         app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:text="Фильтры"
+            android:textColor="@color/colorAccent"
+            app:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/textDateUp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="8"
+            android:drawableLeft="@drawable/up"
+            android:gravity="center"
+            android:text="Дата"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textDateDown"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="8"
+            android:drawableLeft="@drawable/down"
+            android:gravity="center"
+            android:text="Дата"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textLenghtUp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="8"
+            android:drawableLeft="@drawable/up"
+            android:gravity="center"
+            android:text="Продолжительность"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            app:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/textLenghtDown"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="8"
+            android:drawableLeft="@drawable/down"
+            android:gravity="center"
+            android:text="Продолжительность"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            app:autoSizeTextType="uniform" />
 
     </LinearLayout>
 </androidx.constraintlayout.motion.widget.MotionLayout>
