@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:clickable="true"
     android:orientation="vertical"
     android:weightSum="100">
 
@@ -152,12 +153,12 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/work_img"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/wite_oval"
-                    android:src="@drawable/play" />
+            <ImageView
+                android:id="@+id/work_img"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/wite_oval"
+                android:src="@drawable/play" />
 
 
         </LinearLayout>

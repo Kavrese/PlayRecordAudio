@@ -14,38 +14,50 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Клик на вкладку прослушивания
         shape_head.setOnClickListener {
             setFragment(FragmentHead())
-            motion_win.transitionToEnd()
-            main = false
         }
 
+        //Клик на вкладку записи
         shape_rec.setOnClickListener {
-         //   motion_win.transitionToEnd()
-          //  main = false
+            setFragment(FragmentRec())
         }
     }
 
+    //Метод установки нового fragment
     private fun setFragment(fragment: Fragment){
         val fr = supportFragmentManager
         val tr = fr.beginTransaction()
+        //Прячим старый fragment, не заменяем для сохраненние информации на нём
         tr.hide(nowFragment!!)
+        //Добавляем новый fragment
         tr.add(R.id.frameLayout,fragment)
         tr.commit()
+        //Какой сейчас фрагмент
         nowFragment = fragment
+        //Запускаем анимацию появления fragment
+        motion_win.transitionToEnd()
+        //Сейчас не в главном меню
+        main = false
     }
 
     override fun onBackPressed() {
         if (!main){
+            //Если не в меню - запускаем анимацию сворачивания fragment
             motion_win.transitionToStart()
+            //Полсе завершения анимации
             Handler().postDelayed({
                 val fr = supportFragmentManager
                 val tr = fr.beginTransaction()
+                //Прячим сейчашний фрагмент
                 tr.hide(nowFragment!!)
                 tr.commit()
+                //Мы в главном меню
                 main = true
             }, 1100)
         }else{
+            //Выходим из приложенния
             exitProcess(1)
         }
     }
