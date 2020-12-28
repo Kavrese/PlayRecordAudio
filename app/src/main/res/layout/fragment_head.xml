@@ -76,7 +76,7 @@
         android:weightSum="100">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/name_dialog"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="50"
@@ -86,7 +86,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/date_dialog"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20"
