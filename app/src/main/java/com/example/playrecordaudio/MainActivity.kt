@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
     private fun setFragment(fragment: Fragment){
         val fr = supportFragmentManager
         val tr = fr.beginTransaction()
-        //Прячим старый fragment, не заменяем для сохраненние информации на нём
-        tr.hide(nowFragment!!)
         //Добавляем новый fragment
         tr.add(R.id.frameLayout,fragment)
         tr.commit()
@@ -46,16 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (!main){
             //Если не в меню - запускаем анимацию сворачивания fragment
             motion_win.transitionToStart()
-            //Полсе завершения анимации
-            Handler().postDelayed({
-                val fr = supportFragmentManager
-                val tr = fr.beginTransaction()
-                //Прячим сейчашний фрагмент
-                tr.hide(nowFragment!!)
-                tr.commit()
-                //Мы в главном меню
-                main = true
-            }, 1100)
+            main = true
         }else{
             //Выходим из приложенния
             exitProcess(1)
