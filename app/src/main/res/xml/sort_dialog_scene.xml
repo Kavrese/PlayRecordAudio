@@ -4,23 +4,22 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="680dp"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_editor_absoluteX="0dp" />
+            android:layout_height="match_parent"
+            android:layout_width="190dp"
+            android:id="@+id/linear_sort"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_editor_absoluteX="400dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
+            android:id="@+id/linear_sort"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="190dp"
             android:layout_height="match_parent" />
     </ConstraintSet>
 
     <Transition
-        app:duration="1000"
-        android:id="@+id/tra_fra"
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start" />
 </MotionScene>

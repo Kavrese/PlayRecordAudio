@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/motion_sort"
+    android:layout_width="400dp"
+    android:layout_height="500dp"
+    android:background="@color/colorPrimary"
+    app:layoutDescription="@xml/sort_dialog_scene">
+
+    <LinearLayout
+        android:id="@+id/linear_rec"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/textSort"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="Сортировка"
+            android:textColor="@color/colorAccent"
+            app:autoSizeTextType="uniform" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_sort"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_sort"
+        android:layout_width="190dp"
+        android:layout_height="match_parent"
+        android:background="@color/alpha_grey"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </LinearLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
