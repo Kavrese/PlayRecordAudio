@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lin_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+<androidx.constraintlayout.motion.widget.MotionLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_main_scene">
+
+    <LinearLayout
+        android:id="@+id/win_rec"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="left|center"
+        android:orientation="vertical"
+        android:weightSum="10"
+        app:layout_constraintBottom_toTopOf="@+id/win_head"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="230dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="7"
+            app:shape_roundRect_bottomLeftRadius="20dp"
+            app:shape_roundRect_bottomRightRadius="20dp"
+            app:shape_roundRect_topLeftRadius="20dp"
+            app:shape_roundRect_topRightRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="8"
+                    android:src="@drawable/micro" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center|top"
+                    android:text="Записать"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/win_head"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="right|center"
+        android:orientation="vertical"
+        android:weightSum="10"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="230dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="7"
+            app:shape_roundRect_bottomLeftRadius="20dp"
+            app:shape_roundRect_bottomRightRadius="20dp"
+            app:shape_roundRect_topLeftRadius="20dp"
+            app:shape_roundRect_topRightRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="8"
+                    android:src="@drawable/head" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center|top"
+                    android:text="Слушать"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+    </FrameLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
+</LinearLayout>
