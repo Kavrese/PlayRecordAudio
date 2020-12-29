@@ -2,9 +2,9 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/motion_sort"
-    android:layout_width="400dp"
+    android:layout_width="300dp"
     android:layout_height="500dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorBackDialog"
     app:layoutDescription="@xml/sort_dialog_scene">
 
     <LinearLayout
@@ -14,17 +14,33 @@
         android:orientation="vertical"
         android:weightSum="100">
 
-        <TextView
-            android:id="@+id/textSort"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:gravity="center|left"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="5dp"
-            android:text="Сортировка"
-            android:textColor="@color/colorAccent"
-            app:autoSizeTextType="uniform" />
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:padding="5dp"
+                app:srcCompat="@drawable/abc_vector_test" />
+
+            <TextView
+                android:id="@+id/textSort"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="8"
+                android:gravity="center|left"
+                android:paddingTop="5dp"
+                android:text="Сортировка"
+                android:textColor="@color/colorAccent"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_sort"
@@ -37,7 +53,7 @@
         android:id="@+id/linear_sort"
         android:layout_width="190dp"
         android:layout_height="match_parent"
-        android:background="@color/alpha_grey"
+        android:background="@color/colorAccent2"
         android:orientation="vertical"
         android:weightSum="100"
         app:layout_constraintEnd_toEndOf="parent">

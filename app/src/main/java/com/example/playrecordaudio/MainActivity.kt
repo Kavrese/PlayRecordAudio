@@ -13,10 +13,9 @@ import com.example.playrecordaudio.model.ModelAudio
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 
-class MainActivity : AppCompatActivity(), ActualList{
-    private var nowFragment: Fragment? = FragmentHead()
+class MainActivity : AppCompatActivity(){
     var main = true
-    var list: MutableList<ModelAudio> = mutableListOf()
+    private var nowFragment: Fragment? = FragmentHead()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -61,20 +60,18 @@ class MainActivity : AppCompatActivity(), ActualList{
             exitProcess(1)
         }
     }
-
+    //Метод проверки разрешений
     private fun checkPer(): Boolean{
         return if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             val permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.VIBRATE)
             ActivityCompat.requestPermissions(this, permissions,0)
             false
         }else{
             true
         }
-    }
-
-    override fun newElem(elem: ModelAudio) {
-        list.add(elem)
     }
 }

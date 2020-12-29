@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#171717</color>
     <color name="colorAccent2">#5C5C5C</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="colorBackDialog">#303030</color>
     <color name="alpha_grey">#CB3C3C3C</color>
     <color name="colorProgress">#F44336</color>
 </resources>

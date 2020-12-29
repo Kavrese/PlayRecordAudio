@@ -108,10 +108,6 @@ class FragmentRec: Fragment() {
             rec = false
             vibrate()
             toSave(saveFile!!)
-            val inter = requireActivity() as ActualList
-            try {
-                inter.newElem(saveModel!!)
-            }catch (ignore: ClassCastException){}
         }
     }
 

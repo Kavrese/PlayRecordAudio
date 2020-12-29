@@ -20,5 +20,11 @@
 
     <Transition
         app:constraintSetEnd="@id/end"
-        app:constraintSetStart="@+id/start" />
+        app:constraintSetStart="@+id/start" >
+        <OnSwipe
+            app:touchAnchorSide="right"
+            app:touchAnchorId="@id/linear_sort"
+            app:onTouchUp="autoComplete"
+            app:dragDirection="dragRight"/>
+    </Transition>
 </MotionScene>
