@@ -46,7 +46,8 @@
             android:id="@+id/rec_sort"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="90" />
+            android:layout_weight="90"
+            android:visibility="visible" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,6 +55,10 @@
         android:layout_width="190dp"
         android:layout_height="match_parent"
         android:background="@color/colorAccent2"
+        android:clickable="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:contextClickable="false"
         android:orientation="vertical"
         android:weightSum="100"
         app:layout_constraintEnd_toEndOf="parent">

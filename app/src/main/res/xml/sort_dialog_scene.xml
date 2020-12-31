@@ -7,7 +7,15 @@
             android:layout_height="match_parent"
             android:layout_width="190dp"
             android:id="@+id/linear_sort"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" >
+            <CustomAttribute
+                app:attributeName="clickable"
+                app:customBoolean="true" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/linear_rec"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -15,14 +23,17 @@
             android:id="@+id/linear_sort"
             android:layout_width="190dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="parent" />
+            app:layout_constraintStart_toEndOf="parent">
+            <CustomAttribute
+                app:attributeName="clickable"
+                app:customBoolean="true" />
+        </Constraint>
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start" >
         <OnSwipe
-            app:touchAnchorSide="right"
             app:touchAnchorId="@id/linear_sort"
             app:onTouchUp="autoComplete"
             app:dragDirection="dragRight"/>

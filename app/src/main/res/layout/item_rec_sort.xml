@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:background="@color/colorPrimaryDark"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="5dp"
+    android:background="@drawable/dark_back"
     android:orientation="horizontal">
 
     <CheckBox
@@ -21,7 +24,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name_dialog"
+            android:id="@+id/name_item"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="5dp"
@@ -33,12 +36,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/date_dialog"
+            android:id="@+id/date_item"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="5dp"
             android:layout_weight="35"
-            android:gravity="center|left"
+            android:gravity="center"
             android:text="TextView"
             android:textColor="@color/colorAccent2"
             android:textSize="20sp" />

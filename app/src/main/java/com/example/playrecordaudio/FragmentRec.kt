@@ -67,7 +67,7 @@ class FragmentRec: Fragment() {
 
     private fun startRec(): ModelAudio{
         val date = SimpleDateFormat("ddMMyyyyHHmmss").format(Date())
-        val name_file = "$date.mp3"
+        val name_file = "${name.text.toString()}&$date.mp3"
         val file = File(path_files.absolutePath, name_file)
         try {
             file.createNewFile()

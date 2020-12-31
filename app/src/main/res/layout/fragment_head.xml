@@ -76,22 +76,22 @@
         android:weightSum="100">
 
         <TextView
-            android:id="@+id/name_dialog"
+            android:id="@+id/name_file"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="50"
             android:gravity="center"
-            android:text="TextView"
+            android:text="Выберите файл (см. Показать всё)"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/date_dialog"
+            android:id="@+id/date_file"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20"
             android:gravity="center"
-            android:text="TextView"
+            android:text="Дата"
             android:textColor="@color/colorAccent2"
             android:textSize="22sp" />
     </LinearLayout>
@@ -120,9 +120,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="15"
                 android:gravity="center"
-                android:text="NOW"
+                android:text="00:00"
                 android:textColor="@color/colorAccent"
-                app:autoSizeTextType="uniform" />
+                android:textSize="20sp"
+                app:autoSizeTextType="none" />
 
             <SeekBar
                 android:id="@+id/seekBar"
@@ -140,9 +141,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="15"
                 android:gravity="center"
-                android:text="MAX"
+                android:text="00:00"
                 android:textColor="@color/colorAccent"
-                app:autoSizeTextType="uniform" />
+                android:textSize="20sp"
+                app:autoSizeTextType="none" />
         </LinearLayout>
 
         <LinearLayout
