@@ -26,6 +26,7 @@ class FragmentHead(): Fragment(), OpenListener {
     var now_model: ModelAudio? = null
     var mediaPlayer:MediaPlayer = MediaPlayer()
     var isPlay = false
+    var activ_double_click_pause = false
     var dialog_sort:Dialog? = null
     lateinit var refreshTimeNow: Runnable
     var list_now: MutableList<ModelAudio> = mutableListOf()
@@ -105,9 +106,23 @@ class FragmentHead(): Fragment(), OpenListener {
     }
 
     private fun pause(){
-        mediaPlayer.pause()
-        isPlay = false
-        work_img.setImageResource(R.drawable.play)
+        activ_double_click_pause = !activ_double_click_pause
+        if (activ_double_click_pause){
+            Handler().postDelayed(
+                {
+                    if (!activ_double_click_pause){
+                        mediaPlayer.seekTo(0)
+                       // mediaPlayer.start()
+                        Toast.makeText(requireContext(), "Reset", Toast.LENGTH_LONG).show()
+                    }else{
+                        mediaPlayer.pause()
+                        isPlay = false
+                        work_img.setImageResource(R.drawable.play)
+                        activ_double_click_pause = false
+                    }
+                }, 150
+            )
+        }
     }
 
     private fun initDialog(){
