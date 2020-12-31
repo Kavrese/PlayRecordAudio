@@ -19,9 +19,8 @@ import com.example.playrecordaudio.model.ModelAudio
 import kotlinx.android.synthetic.main.fragment_head.*
 import java.io.File
 import java.text.SimpleDateFormat
-import kotlin.concurrent.thread
 
-class FragmentHead(): Fragment(), OpenListener {
+class FragmentHead: Fragment(), getListener {
     private val path_files = File(Environment.getExternalStorageDirectory().toString() + "/.PlayRecordAudio/")
     var list_all: MutableList<ModelAudio> = mutableListOf()
     var now_model: ModelAudio? = null
@@ -30,6 +29,7 @@ class FragmentHead(): Fragment(), OpenListener {
     var activ_double_click_pause = false
     var dialog_sort:Dialog? = null
     var list_now: MutableList<ModelAudio> = mutableListOf()
+    private val mHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,7 @@ class FragmentHead(): Fragment(), OpenListener {
         return inflater.inflate(R.layout.fragment_head, container, false)
     }
 
-    override fun openFromSortDialog(model: ModelAudio) {
+    override fun getModelFromSortDialog(model: ModelAudio) {
         if (isPlay) {
             stopPlay()
         }
@@ -53,7 +53,6 @@ class FragmentHead(): Fragment(), OpenListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         list_all = getLocalFiles()
         list_now = list_all
-        initDialog()
         work_img.setOnClickListener {
             if (now_model != null) {
                 if (isPlay) {
@@ -66,6 +65,7 @@ class FragmentHead(): Fragment(), OpenListener {
             }
         }
         show_all.setOnClickListener {
+            initDialog(false)
             dialog_sort!!.show()
         }
         seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
@@ -87,6 +87,11 @@ class FragmentHead(): Fragment(), OpenListener {
             }
 
         })
+
+        ver_menu.setOnClickListener {
+            initDialog(true)
+            dialog_sort!!.show()
+        }
     }
 
     private fun initMediaPlayer(){
@@ -141,12 +146,12 @@ class FragmentHead(): Fragment(), OpenListener {
         }
     }
 
-    private fun initDialog(){
+    private fun initDialog(show_checkBox: Boolean){
         dialog_sort = Dialog(requireContext())
         dialog_sort!!.setContentView(R.layout.sort_dialog)
         val rec = dialog_sort!!.findViewById<RecyclerView>(R.id.rec_sort)
         rec.apply {
-            adapter = AdapterFiles(list_now, this@FragmentHead)
+            adapter = AdapterFiles(list_now, this@FragmentHead, show_checkBox)
             layoutManager = LinearLayoutManager(requireContext())
         }
 
