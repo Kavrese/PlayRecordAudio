@@ -114,37 +114,16 @@
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <TextView
-                android:id="@+id/now_time"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:gravity="center"
-                android:text="00:00"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                app:autoSizeTextType="none" />
-
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="70"
+                android:layout_weight="100"
                 android:max="100"
                 android:progressBackgroundTint="@color/colorAccent2"
                 android:progressBackgroundTintMode="screen"
                 android:progressTint="@color/colorProgress" />
 
-            <TextView
-                android:id="@+id/max_time"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:gravity="center"
-                android:text="00:00"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                app:autoSizeTextType="none" />
         </LinearLayout>
 
         <LinearLayout

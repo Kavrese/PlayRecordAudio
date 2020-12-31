@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +29,6 @@ class FragmentHead(): Fragment(), OpenListener {
     var isPlay = false
     var activ_double_click_pause = false
     var dialog_sort:Dialog? = null
-    lateinit var refreshTimeNow: Runnable
     var list_now: MutableList<ModelAudio> = mutableListOf()
 
     override fun onCreateView(
@@ -68,20 +68,36 @@ class FragmentHead(): Fragment(), OpenListener {
         show_all.setOnClickListener {
             dialog_sort!!.show()
         }
-        refreshTimeNow = Runnable {
-           now_time.text = mediaPlayer.currentPosition.toString()
-        }
+        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                if (now_model != null){
+                    mediaPlayer.seekTo(p1)
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                if (now_model == null){
+                    p0!!.progress = 0
+                    Toast.makeText(requireContext(), "Выберите файл (см. Показать всё)",Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
     }
 
     private fun initMediaPlayer(){
             if (now_model != null) {
                 mediaPlayer = MediaPlayer.create(requireContext(), Uri.parse(now_model!!.path))
+                seekBar.max = mediaPlayer.duration
+                seekBar.progress = 0
                 mediaPlayer.setOnCompletionListener {
                     work_img.setImageResource(R.drawable.play)
                     stopPlay()
                 }
-                max_time.text = mediaPlayer.duration.toString()
-                now_time.text = mediaPlayer.currentPosition.toString()
             }else{
                 Toast.makeText(requireContext(), "Выберите файл (см. Показать всё)",Toast.LENGTH_LONG).show()
             }
