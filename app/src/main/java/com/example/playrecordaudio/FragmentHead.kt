@@ -183,43 +183,48 @@ class FragmentHead: Fragment(), getListener {
         }
     }
 
-    private fun initSortDialog(show_checkBox: Boolean, selected: MutableList<Int> = mutableListOf()){
+    private fun initSortDialog(show_checkBox: Boolean){
         dialog_sort = Dialog(requireContext())
         dialog_sort!!.setContentView(R.layout.sort_dialog)
         val rec = dialog_sort!!.findViewById<RecyclerView>(R.id.rec_sort)
         val back = dialog_sort!!.findViewById<ImageView>(R.id.back)
 
+        val clear = dialog_sort!!.findViewById<TextView>(R.id.clear)
         val dateUp = dialog_sort!!.findViewById<TextView>(R.id.textDateUp)
         val dateDown = dialog_sort!!.findViewById<TextView>(R.id.textDateDown)
         val alphabetUp = dialog_sort!!.findViewById<TextView>(R.id.textAlphabetUp)
         val alphabetDown = dialog_sort!!.findViewById<TextView>(R.id.textAlphabetDown)
 
+        dateUp.setOnClickListener {
+            list_now = Sort().date(list_all.toTypedArray().clone().toMutableList(), Sort().UP)
+            newListToRec(rec, show_checkBox)
+        }
+
+        dateDown.setOnClickListener {
+            list_now = Sort().date(list_all.toTypedArray().clone().toMutableList(), Sort().DOWN)
+            newListToRec(rec, show_checkBox)
+        }
+
+        clear.setOnClickListener {
+            list_now = list_all
+            newListToRec(rec, show_checkBox)
+        }
+
         alphabetUp.setOnClickListener {
             list_now = Sort().alphabet(list_all.toTypedArray().clone().toMutableList(), Sort().UP)
-            rec.adapter = AdapterFiles(
-                list_now,
-                this@FragmentHead,
-                show_checkBox,
-                selected
-            )
+            newListToRec(rec, show_checkBox)
         }
 
         alphabetDown.setOnClickListener {
             list_now = Sort().alphabet(list_all.toTypedArray().clone().toMutableList(), Sort().DOWN)
-            rec.adapter = AdapterFiles(
-                list_now,
-                this@FragmentHead,
-                show_checkBox,
-                selected
-            )
+            newListToRec(rec, show_checkBox)
         }
 
         rec.apply {
             adapter = AdapterFiles(
                 list_now,
                 this@FragmentHead,
-                show_checkBox,
-                selected
+                show_checkBox
             )
             layoutManager = LinearLayoutManager(requireContext())
         }
@@ -227,6 +232,14 @@ class FragmentHead: Fragment(), getListener {
             dialog_sort!!.hide()
         }
         dialog_sort!!.setCanceledOnTouchOutside(false)
+    }
+
+    private fun newListToRec(rec: RecyclerView, show_checkBox: Boolean){
+        rec.adapter = AdapterFiles(
+            list_now,
+            this@FragmentHead,
+            show_checkBox
+        )
     }
 
     private fun initCalendarDialog(){

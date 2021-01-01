@@ -1,6 +1,7 @@
 package com.example.playrecordaudio
 
 import com.example.playrecordaudio.model.ModelAudio
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Arrays
 
@@ -27,7 +28,7 @@ class Sort {
             }
         }
 
-        if (mode == UP){
+        if (mode == DOWN){
             return list_res
         }else{
             val list_res_reversed = mutableListOf<ModelAudio>()
@@ -38,8 +39,36 @@ class Sort {
         }
     }
 
-    fun date(list: MutableList<ModelAudio>, mode: Int){
-
-
+    fun date(list: MutableList<ModelAudio>, mode: Int): MutableList<ModelAudio>{
+        val formartSim = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        val list_res = mutableListOf<ModelAudio>()
+        for (i in 0 until list.size){
+            var maxPos = 0
+            var minPos = 0
+            val max = Calendar.getInstance()
+            max.time = Date(0, 0, 0, 0, 0, 0)
+            val min = Calendar.getInstance()
+            min.time = Date(9999, 12, 30, 23,59,59)
+            val now = Calendar.getInstance()
+            for (j in 0 until list.size){
+                now.time = formartSim.parse(list[j].date!!)!!
+                if (now > max) {
+                    max.time = now.time
+                    maxPos = j
+                }
+                if (now < min) {
+                    min.time = now.time
+                    minPos = j
+                }
+            }
+            if (mode == UP){
+                list_res.add(list[minPos])
+                list.removeAt(minPos)
+            }else{
+                list_res.add(list[maxPos])
+                list.removeAt(maxPos)
+            }
+        }
+        return list_res
     }
 }
