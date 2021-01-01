@@ -9,10 +9,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.SeekBar
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -190,6 +187,33 @@ class FragmentHead: Fragment(), getListener {
         dialog_sort = Dialog(requireContext())
         dialog_sort!!.setContentView(R.layout.sort_dialog)
         val rec = dialog_sort!!.findViewById<RecyclerView>(R.id.rec_sort)
+        val back = dialog_sort!!.findViewById<ImageView>(R.id.back)
+
+        val dateUp = dialog_sort!!.findViewById<TextView>(R.id.textDateUp)
+        val dateDown = dialog_sort!!.findViewById<TextView>(R.id.textDateDown)
+        val alphabetUp = dialog_sort!!.findViewById<TextView>(R.id.textAlphabetUp)
+        val alphabetDown = dialog_sort!!.findViewById<TextView>(R.id.textAlphabetDown)
+
+        alphabetUp.setOnClickListener {
+            list_now = Sort().alphabet(list_all.toTypedArray().clone().toMutableList(), Sort().UP)
+            rec.adapter = AdapterFiles(
+                list_now,
+                this@FragmentHead,
+                show_checkBox,
+                selected
+            )
+        }
+
+        alphabetDown.setOnClickListener {
+            list_now = Sort().alphabet(list_all.toTypedArray().clone().toMutableList(), Sort().DOWN)
+            rec.adapter = AdapterFiles(
+                list_now,
+                this@FragmentHead,
+                show_checkBox,
+                selected
+            )
+        }
+
         rec.apply {
             adapter = AdapterFiles(
                 list_now,
@@ -199,8 +223,6 @@ class FragmentHead: Fragment(), getListener {
             )
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-        val back = dialog_sort!!.findViewById<ImageView>(R.id.back)
         back.setOnClickListener {
             dialog_sort!!.hide()
         }
