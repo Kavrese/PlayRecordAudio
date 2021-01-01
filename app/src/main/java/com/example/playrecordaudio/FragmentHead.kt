@@ -16,10 +16,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playrecordaudio.adapters.AdapterFiles
+import com.example.playrecordaudio.adapters.AdapterMonth
 import com.example.playrecordaudio.model.ModelAudio
+import com.example.playrecordaudio.model.ModelMonth
 import kotlinx.android.synthetic.main.fragment_head.*
 import java.io.File
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 class FragmentHead: Fragment(), getListener {
     private val path_files = File(Environment.getExternalStorageDirectory().toString() + "/.PlayRecordAudio/")
@@ -31,6 +36,7 @@ class FragmentHead: Fragment(), getListener {
     var activ_double_click_pause = false
     var dialog_sort:Dialog? = null
     var dialog_selected:Dialog? = null
+    var dialog_calendar:Dialog? = null
     var list_now: MutableList<ModelAudio> = mutableListOf()
     var playAll = false
     var positionPlay = 0
@@ -106,6 +112,11 @@ class FragmentHead: Fragment(), getListener {
             list_now = list_all
             startPlayMN()
         }
+
+        calendar.setOnClickListener {
+            initCalendarDialog()
+            dialog_calendar!!.show()
+        }
     }
 
     private fun startPlayMN (){
@@ -180,7 +191,12 @@ class FragmentHead: Fragment(), getListener {
         dialog_sort!!.setContentView(R.layout.sort_dialog)
         val rec = dialog_sort!!.findViewById<RecyclerView>(R.id.rec_sort)
         rec.apply {
-            adapter = AdapterFiles(list_now, this@FragmentHead, show_checkBox, selected)
+            adapter = AdapterFiles(
+                list_now,
+                this@FragmentHead,
+                show_checkBox,
+                selected
+            )
             layoutManager = LinearLayoutManager(requireContext())
         }
 
@@ -189,6 +205,34 @@ class FragmentHead: Fragment(), getListener {
             dialog_sort!!.hide()
         }
         dialog_sort!!.setCanceledOnTouchOutside(false)
+    }
+
+    private fun initCalendarDialog(){
+        dialog_calendar = Dialog(requireContext())
+        dialog_calendar!!.setContentView(R.layout.calendar_dialog)
+        val rec = dialog_calendar!!.findViewById<RecyclerView>(R.id.rec_cal)
+        rec.apply {
+            adapter = AdapterMonth(generateListFileToListMonth(list_all))
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun generateListFileToListMonth(list_file: MutableList<ModelAudio>): MutableList<ModelMonth>{
+        val list_month = mutableListOf<ModelMonth>()
+        for (i in 0..11){
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.MONTH, i)
+            val month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale("Ru"))
+            val list_file_month = mutableListOf<ModelAudio>()
+            for (f in list_all){
+                val numMonthF = Integer.parseInt(f.date!!.substring(3,5)) - 1
+                if(numMonthF == i){
+                    list_file_month.add(f)
+                }
+            }
+            list_month.add(ModelMonth(month, list_file_month.size, list_file_month))
+        }
+        return list_month
     }
 
     private fun initSelectedDialog(){

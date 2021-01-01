@@ -1,13 +1,14 @@
-package com.example.playrecordaudio
+package com.example.playrecordaudio.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playrecordaudio.FragmentHead
+import com.example.playrecordaudio.R
 import com.example.playrecordaudio.model.ModelAudio
 import java.lang.ClassCastException
 
@@ -20,7 +21,9 @@ class AdapterFiles(var list: MutableList<ModelAudio>, val activity: FragmentHead
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rec_sort, parent, false)
-        return MyViewHolder(view)
+        return MyViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int = list.size
@@ -46,5 +49,13 @@ class AdapterFiles(var list: MutableList<ModelAudio>, val activity: FragmentHead
                 Toast.makeText(activity.context, "Error", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 }
