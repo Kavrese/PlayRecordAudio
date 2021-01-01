@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -26,8 +27,10 @@ class FragmentHead: Fragment(), getListener {
     var now_model: ModelAudio? = null
     var mediaPlayer:MediaPlayer = MediaPlayer()
     var isPlay = false
+    var list_selected = mutableListOf<Int>()
     var activ_double_click_pause = false
     var dialog_sort:Dialog? = null
+    var dialog_selected:Dialog? = null
     var list_now: MutableList<ModelAudio> = mutableListOf()
     var playAll = false
     var positionPlay = 0
@@ -65,7 +68,7 @@ class FragmentHead: Fragment(), getListener {
             }
         }
         filter.setOnClickListener {
-            initDialog(false)
+            initSortDialog(false)
             dialog_sort!!.show()
         }
         seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
@@ -89,17 +92,29 @@ class FragmentHead: Fragment(), getListener {
         })
 
         ver_menu.setOnClickListener {
-            initDialog(true)
-            dialog_sort!!.show()
+            if (list_selected.size == 0) {
+                initSortDialog(true)
+                dialog_sort!!.show()
+                Toast.makeText(requireContext(), "Сначало выберите файлы", Toast.LENGTH_LONG).show()
+            }else{
+                initSelectedDialog()
+                dialog_selected!!.show()
+            }
         }
 
         show_all.setOnClickListener {
-            now_model = list_now[positionPlay]
-            initMediaPlayer()
-            playAll = true
-            setInfoModelToViews(now_model!!)
-            play()
+            list_now = list_all
+            startPlayMN()
         }
+    }
+
+    private fun startPlayMN (){
+        positionPlay = 0
+        now_model = list_now[positionPlay]
+        initMediaPlayer()
+        playAll = true
+        setInfoModelToViews(now_model!!)
+        play()
     }
 
     private fun initMediaPlayer(){
@@ -160,12 +175,12 @@ class FragmentHead: Fragment(), getListener {
         }
     }
 
-    private fun initDialog(show_checkBox: Boolean){
+    private fun initSortDialog(show_checkBox: Boolean, selected: MutableList<Int> = mutableListOf()){
         dialog_sort = Dialog(requireContext())
         dialog_sort!!.setContentView(R.layout.sort_dialog)
         val rec = dialog_sort!!.findViewById<RecyclerView>(R.id.rec_sort)
         rec.apply {
-            adapter = AdapterFiles(list_now, this@FragmentHead, show_checkBox)
+            adapter = AdapterFiles(list_now, this@FragmentHead, show_checkBox, selected)
             layoutManager = LinearLayoutManager(requireContext())
         }
 
@@ -174,6 +189,34 @@ class FragmentHead: Fragment(), getListener {
             dialog_sort!!.hide()
         }
         dialog_sort!!.setCanceledOnTouchOutside(false)
+    }
+
+    private fun initSelectedDialog(){
+        dialog_selected = Dialog(requireContext(), R.style.DialogTheme)
+        dialog_selected!!.setContentView(R.layout.edit_selected_items)
+        val refresh = dialog_selected!!.findViewById<LinearLayout>(R.id.refresh)
+        val delete = dialog_selected!!.findViewById<LinearLayout>(R.id.delete)
+        val play = dialog_selected!!.findViewById<LinearLayout>(R.id.play)
+        refresh.setOnClickListener {
+            list_selected.clear()
+            dialog_selected!!.hide()
+        }
+        delete.setOnClickListener {
+            for (i in list_selected){
+                list_now.removeAt(i)
+            }
+            list_selected.clear()
+            dialog_selected!!.hide()
+        }
+        play.setOnClickListener {
+            val list_ = mutableListOf<ModelAudio>()
+            for (i in list_selected){
+                list_.add(list_now[i])
+            }
+            list_now = list_
+            startPlayMN()
+            dialog_selected!!.hide()
+        }
     }
 
     private fun getLocalFiles(): MutableList<ModelAudio> {
@@ -192,5 +235,9 @@ class FragmentHead: Fragment(), getListener {
     private fun setInfoModelToViews (model: ModelAudio){
         name_file.text = model.name.toString()
         date_file.text = model.date.toString()
+    }
+
+    override fun getListSelectedFromSortDialog(list: MutableList<Int>) {
+        list_selected = list
     }
 }

@@ -2,64 +2,102 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:background="@drawable/dark_back"
-    android:orientation="horizontal"
-    android:weightSum="10">
+    android:layout_height="wrap_content"
+    android:background="@color/colorFullAlpha">
 
     <LinearLayout
-        android:id="@+id/refresh"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:orientation="vertical"
-        android:weightSum="10">
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/dark_back"
+        android:orientation="horizontal"
+        android:weightSum="15">
 
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            android:paddingTop="10dp"
-            app:srcCompat="@drawable/refresh" />
+        <LinearLayout
+            android:id="@+id/refresh"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:weightSum="10">
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:text="Сброс"
-            android:textColor="@color/colorAccent"
-            android:textSize="25sp" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:padding="8dp"
+                app:srcCompat="@drawable/refresh" />
 
-    <LinearLayout
-        android:id="@+id/delete"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:orientation="vertical"
-        android:weightSum="10">
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="Сброс"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/image2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            android:paddingTop="10dp"
-            app:srcCompat="@drawable/delete" />
+        <LinearLayout
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:weightSum="10">
 
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:text="Удалить"
-            android:textColor="@color/colorAccent"
-            android:textSize="25sp" />
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:padding="8dp"
+                app:srcCompat="@drawable/delete" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="Удалить"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/play"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:padding="8dp"
+                app:srcCompat="@drawable/play"
+                app:tint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:text="Сыграть"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

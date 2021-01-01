@@ -7,4 +7,5 @@
     <color name="colorBackDialog">#303030</color>
     <color name="alpha_grey">#CB3C3C3C</color>
     <color name="colorProgress">#F44336</color>
+    <color name="colorFullAlpha">#00000000</color>
 </resources>
