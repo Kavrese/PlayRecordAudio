@@ -1,16 +1,18 @@
 package com.example.playrecordaudio.adapters
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playrecordaudio.FragmentHead
 import com.example.playrecordaudio.R
 import com.example.playrecordaudio.model.ModelMonth
 import kotlinx.android.synthetic.main.item_rec_month.view.*
 
-class AdapterMonth(var list: MutableList<ModelMonth>): RecyclerView.Adapter<AdapterMonth.ViewHolder>() {
+class AdapterMonth(var list: MutableList<ModelMonth>,val activity: FragmentHead): RecyclerView.Adapter<AdapterMonth.ViewHolder>() {
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name = itemView.findViewById<TextView>(R.id.name_dialog)
@@ -29,7 +31,7 @@ class AdapterMonth(var list: MutableList<ModelMonth>): RecyclerView.Adapter<Adap
         holder.name.text = list[position].name_month
         holder.count.text = list[position].count.toString()
         holder.itemView.setOnClickListener {
-
+            activity.getListClickMonth(list[position].list!!)
         }
     }
 

@@ -212,7 +212,7 @@ class FragmentHead: Fragment(), getListener {
         dialog_calendar!!.setContentView(R.layout.calendar_dialog)
         val rec = dialog_calendar!!.findViewById<RecyclerView>(R.id.rec_cal)
         rec.apply {
-            adapter = AdapterMonth(generateListFileToListMonth(list_all))
+            adapter = AdapterMonth(generateListFileToListMonth(list_all),this@FragmentHead)
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -224,7 +224,7 @@ class FragmentHead: Fragment(), getListener {
             cal.set(Calendar.MONTH, i)
             val month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale("Ru"))
             val list_file_month = mutableListOf<ModelAudio>()
-            for (f in list_all){
+            for (f in list_file){
                 val numMonthF = Integer.parseInt(f.date!!.substring(3,5)) - 1
                 if(numMonthF == i){
                     list_file_month.add(f)
@@ -283,5 +283,11 @@ class FragmentHead: Fragment(), getListener {
 
     override fun getListSelectedFromSortDialog(list: MutableList<Int>) {
         list_selected = list
+    }
+
+    override fun getListClickMonth(list: MutableList<ModelAudio>) {
+        dialog_calendar!!.hide()
+        list_now = list
+        startPlayMN()
     }
 }
