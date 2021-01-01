@@ -22,7 +22,7 @@
             android:id="@+id/show_all"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
+            android:layout_weight="60"
             android:orientation="horizontal"
             android:weightSum="10">
 
@@ -30,20 +30,20 @@
                 android:id="@+id/menu"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 app:srcCompat="@drawable/menu" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
+                android:layout_weight="8.5"
                 android:gravity="center|left"
                 android:paddingLeft="5dp"
                 android:paddingTop="15dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="15dp"
-                android:text="Показать всё"
+                android:text="Воспроизвести всё"
                 android:textColor="@color/colorAccent"
                 app:autoSizeTextType="uniform" />
         </LinearLayout>
@@ -52,7 +52,7 @@
             android:id="@+id/lin_top_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
+            android:layout_weight="40"
             android:gravity="right"
             android:orientation="horizontal"
             android:weightSum="100">
@@ -61,7 +61,7 @@
                 android:id="@+id/filter"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="20"
+                android:layout_weight="25"
                 app:srcCompat="@drawable/filter" />
         </LinearLayout>
 
@@ -81,7 +81,7 @@
             android:layout_height="0dp"
             android:layout_weight="50"
             android:gravity="center"
-            android:text="Выберите файл (см. Показать всё)"
+            android:text="Выберите файл"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 

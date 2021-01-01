@@ -29,7 +29,8 @@ class FragmentHead: Fragment(), getListener {
     var activ_double_click_pause = false
     var dialog_sort:Dialog? = null
     var list_now: MutableList<ModelAudio> = mutableListOf()
-    private val mHandler = Handler()
+    var playAll = false
+    var positionPlay = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +47,7 @@ class FragmentHead: Fragment(), getListener {
         dialog_sort!!.hide()
         now_model = model
         initMediaPlayer()
-        name_file.text = now_model!!.name.toString()
-        date_file.text = now_model!!.date.toString()
+        setInfoModelToViews(now_model!!)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,10 +61,10 @@ class FragmentHead: Fragment(), getListener {
                     play()
                 }
             }else{
-                Toast.makeText(requireContext(), "Выберите файл (см. Показать всё)",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Выберите файл (см. Воспроизвести всё)",Toast.LENGTH_LONG).show()
             }
         }
-        show_all.setOnClickListener {
+        filter.setOnClickListener {
             initDialog(false)
             dialog_sort!!.show()
         }
@@ -82,7 +82,7 @@ class FragmentHead: Fragment(), getListener {
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 if (now_model == null){
                     p0!!.progress = 0
-                    Toast.makeText(requireContext(), "Выберите файл (см. Показать всё)",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Выберите файл",Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -92,6 +92,14 @@ class FragmentHead: Fragment(), getListener {
             initDialog(true)
             dialog_sort!!.show()
         }
+
+        show_all.setOnClickListener {
+            now_model = list_now[positionPlay]
+            initMediaPlayer()
+            playAll = true
+            setInfoModelToViews(now_model!!)
+            play()
+        }
     }
 
     private fun initMediaPlayer(){
@@ -100,19 +108,25 @@ class FragmentHead: Fragment(), getListener {
                 seekBar.max = mediaPlayer.duration
                 seekBar.progress = 0
                 mediaPlayer.setOnCompletionListener {
-                    work_img.setImageResource(R.drawable.play)
                     stopPlay()
+                    if (playAll && (positionPlay < list_now.size - 1) ){
+                        positionPlay += 1
+                        now_model = list_now[positionPlay]
+                        initMediaPlayer()
+                        setInfoModelToViews(now_model!!)
+                        play()
+                    }
                 }
             }else{
-                Toast.makeText(requireContext(), "Выберите файл (см. Показать всё)",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Выберите файл",Toast.LENGTH_LONG).show()
             }
     }
 
     private fun stopPlay(){
         try {
             isPlay = false
+            work_img.setImageResource(R.drawable.play)
             mediaPlayer.seekTo(0)
-
         }catch (t: Throwable) {
             if (t.message != "") {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
@@ -173,5 +187,10 @@ class FragmentHead: Fragment(), getListener {
             list_.add(ModelAudio(name, SimpleDateFormat("dd.MM.yyyy").format(new_date), listFiles[i].toString()))
         }
         return list_
+    }
+
+    private fun setInfoModelToViews (model: ModelAudio){
+        name_file.text = model.name.toString()
+        date_file.text = model.date.toString()
     }
 }
