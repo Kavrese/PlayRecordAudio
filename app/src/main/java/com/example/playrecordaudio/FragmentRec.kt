@@ -2,7 +2,9 @@ package com.example.playrecordaudio
 
 import android.app.Dialog
 import android.content.Context
+import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -10,6 +12,7 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -18,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_rec.*
 import kotlinx.android.synthetic.main.save.*
 import java.io.File
 import java.io.IOException
-import java.lang.ClassCastException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,6 +32,8 @@ class FragmentRec: Fragment() {
     private var saveModel: ModelAudio? = null
     private var mediaRecorder = MediaRecorder()
     private var saveFile: File? = null
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
+    private var isPlay = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,9 +125,11 @@ class FragmentRec: Fragment() {
         dialog.setContentView(R.layout.save)
         dialog.save.setOnClickListener {
             dialog.dismiss()
+            name.setText("")
         }
         val date_: TextView = dialog.findViewById(R.id.date_dialog)
         val name_: TextView = dialog.findViewById(R.id.name_dialog)
+        val play : ImageView = dialog.findViewById(R.id.play_save)
         date_.text = date.text.toString()
         name_.text = name.text.toString()
         dialog.close.setOnClickListener {
@@ -132,7 +138,42 @@ class FragmentRec: Fragment() {
             }
             dialog.dismiss()
         }
+        mediaPlayer = MediaPlayer.create(requireContext(), Uri.parse(saveModel!!.path))
+        mediaPlayer.setOnCompletionListener {
+            reset()
+            play.setImageResource(R.drawable.play)
+        }
+        play.setOnClickListener {
+            if (!isPlay){
+                play()
+                play.setImageResource(R.drawable.pause)
+            }else{
+                pause()
+                play.setImageResource(R.drawable.play)
+            }
+        }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
+    }
+
+    private fun play(){
+        mediaPlayer.start()
+        isPlay = true
+    }
+
+    private fun pause(){
+        mediaPlayer.pause()
+        isPlay = false
+    }
+
+    private fun reset(){
+        try {
+            isPlay = false
+            mediaPlayer.seekTo(0)
+        }catch (t: Throwable) {
+            if (t.message != "") {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }

@@ -121,14 +121,14 @@
                 android:weightSum="100">
 
                 <TextView
-                    android:id="@+id/textAlphabetDown"
+                    android:id="@+id/textAlphabetUp"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="22"
-                    android:drawableLeft="@drawable/down"
+                    android:drawableLeft="@drawable/up"
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -138,14 +138,14 @@
                     app:autoSizeTextType="uniform" />
 
                 <TextView
-                    android:id="@+id/textAlphabetUp"
+                    android:id="@+id/textAlphabetDown"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="22"
-                    android:drawableLeft="@drawable/up"
+                    android:drawableLeft="@drawable/down"
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"

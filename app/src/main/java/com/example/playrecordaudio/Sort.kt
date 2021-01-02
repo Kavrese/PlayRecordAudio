@@ -124,14 +124,14 @@ class Sort {
             }
         }
 
-        if (mode == DOWN){
-            return list_res
+        return if (mode == DOWN){
+            list_res
         }else{
             val list_res_reversed = mutableListOf<ModelMonth>()
             for (i in 0 until list_res.size){
                 list_res_reversed.add(list_res[list_res.size - 1 - i])
             }
-            return list_res_reversed
+            list_res_reversed
         }
     }
 }
