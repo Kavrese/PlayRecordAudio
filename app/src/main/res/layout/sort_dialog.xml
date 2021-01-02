@@ -22,19 +22,11 @@
             android:orientation="horizontal"
             android:weightSum="10">
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:padding="5dp"
-                app:srcCompat="@drawable/abc_vector_test" />
-
             <TextView
                 android:id="@+id/textSort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="8"
                 android:gravity="center|left"
                 android:paddingTop="5dp"
@@ -117,7 +109,8 @@
                     android:paddingRight="10dp"
                     android:text="Дата"
                     android:textColor="@color/colorAccent"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform" />
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +127,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="20"
+                    android:layout_weight="22"
                     android:drawableLeft="@drawable/down"
                     android:gravity="center"
                     android:paddingLeft="10dp"
@@ -151,7 +144,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="20"
+                    android:layout_weight="22"
                     android:drawableLeft="@drawable/up"
                     android:gravity="center"
                     android:paddingLeft="10dp"
@@ -164,9 +157,10 @@
                 <TextView
                     android:id="@+id/clear"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="0dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="15"
                     android:gravity="right"
                     android:paddingRight="5dp"
                     android:text="Сбросить"
@@ -177,4 +171,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/back"
+        android:visibility="visible"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:padding="5dp"
+        app:srcCompat="@drawable/abc_vector_test" />
 </androidx.constraintlayout.motion.widget.MotionLayout>

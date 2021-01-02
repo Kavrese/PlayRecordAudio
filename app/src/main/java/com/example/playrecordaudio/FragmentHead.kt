@@ -245,9 +245,13 @@ class FragmentHead: Fragment(), getListener {
         dialog_calendar = Dialog(requireContext())
         dialog_calendar!!.setContentView(R.layout.calendar_dialog)
         val rec = dialog_calendar!!.findViewById<RecyclerView>(R.id.rec_cal)
+        val back = dialog_calendar!!.findViewById<ImageView>(R.id.back)
         rec.apply {
             adapter = AdapterMonth(generateListFileToListMonth(list_all),this@FragmentHead)
             layoutManager = LinearLayoutManager(requireContext())
+        }
+        back.setOnClickListener {
+            dialog_calendar!!.hide()
         }
     }
 
