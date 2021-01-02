@@ -323,6 +323,7 @@ class FragmentHead: Fragment(), getListener {
         val play = dialog_selected!!.findViewById<LinearLayout>(R.id.play)
         refresh.setOnClickListener {
             list_selected.clear()
+            list_now = list_all
             dialog_selected!!.hide()
         }
         delete.setOnClickListener {
