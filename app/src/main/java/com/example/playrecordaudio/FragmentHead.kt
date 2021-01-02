@@ -17,6 +17,7 @@ import com.example.playrecordaudio.adapters.AdapterFiles
 import com.example.playrecordaudio.adapters.AdapterMonth
 import com.example.playrecordaudio.model.ModelAudio
 import com.example.playrecordaudio.model.ModelMonth
+import kotlinx.android.synthetic.main.calendar_dialog.*
 import kotlinx.android.synthetic.main.fragment_head.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -251,7 +252,7 @@ class FragmentHead: Fragment(), getListener {
     private fun initCalendarDialog(){
         dialog_calendar = Dialog(requireContext())
         dialog_calendar!!.setContentView(R.layout.calendar_dialog)
-        val rec = dialog_calendar!!.findViewById<RecyclerView>(R.id.rec_cal)
+        val rec = dialog_calendar!!.findViewById<RecyclerView>(R.id.rec)
         val back = dialog_calendar!!.findViewById<ImageView>(R.id.back)
         val textFileUp = dialog_calendar!!.findViewById<TextView>(R.id.textFileUp)
         val textFileDown = dialog_calendar!!.findViewById<TextView>(R.id.textFileDown)
@@ -367,6 +368,7 @@ class FragmentHead: Fragment(), getListener {
     override fun getListClickMonth(list: MutableList<ModelAudio>) {
         dialog_calendar!!.hide()
         list_now = list
-        startPlayMN()
+        initSortDialog(false)
+        dialog_sort!!.show()
     }
 }
