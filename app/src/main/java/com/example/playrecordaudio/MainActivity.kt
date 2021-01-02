@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity(){
         shape_rec.setOnClickListener {
             setFragment(FragmentRec())
         }
+        //Запуск стартовой анимации через 800 милл
+        Handler().postDelayed({
+            lin_main.transitionToEnd()
+        }, 3000)
     }
 
     //Метод установки нового fragment
@@ -56,8 +60,11 @@ class MainActivity : AppCompatActivity(){
             motion_win.transitionToStart()
             main = true
         }else{
-            //Выходим из приложенния
-            exitProcess(1)
+            //Выходим из приложенния с анимацией
+            lin_main.transitionToStart()
+            Handler().postDelayed({
+                exitProcess(1)
+            }, 2000)
         }
     }
     //Метод проверки разрешений

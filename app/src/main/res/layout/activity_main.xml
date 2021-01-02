@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lin_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
+    app:layoutDescription="@xml/start_scene"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_win"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/activity_main_scene">
+        app:layoutDescription="@xml/activity_main_scene"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:id="@+id/win_rec"
@@ -121,4 +123,22 @@
 
         </FrameLayout>
     </androidx.constraintlayout.motion.widget.MotionLayout>
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/back"
+        android:alpha="1.0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/motion_win"
+        app:layout_constraintTop_toTopOf="@+id/motion_win"
+        app:srcCompat="@drawable/icon" />
+</androidx.constraintlayout.motion.widget.MotionLayout>

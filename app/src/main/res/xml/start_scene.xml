@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/motion_win"
+            app:layout_constraintStart_toStartOf="@+id/motion_win" />
+        <Constraint
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="1.0" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.0" />
+        <Constraint
+            android:id="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="100dp"
+            android:alpha="0.0"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="@+id/motion_win"
+            app:layout_constraintBottom_toBottomOf="@+id/motion_win"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <Transition
+        app:duration="1000"
+        android:id="@+id/tra_screen"
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"/>
+</MotionScene>
