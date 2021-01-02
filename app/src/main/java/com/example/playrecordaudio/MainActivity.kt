@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(){
             lin_main.transitionToEnd()
             Handler().postDelayed({
                 //Логика показа анимации окна авторизации
-                if(FirebaseAuth.getInstance().currentUser != null) {
+                if(FirebaseAuth.getInstance().currentUser == null) {
                     lin_main.setTransition(R.id.auth)
                     lin_main.transitionToEnd()
                 }
