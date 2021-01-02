@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/linear_rec"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <Constraint
+            android:id="@+id/linear_sort"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/linear_sort"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="parent" />
+        <Constraint
+            android:id="@+id/linear_rec"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ConstraintSet>
+
+    <Transition
+        android:id="@+id/tra_filter"
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start" >
+        <OnSwipe
+            app:touchAnchorId="@id/linear_sort"
+            app:onTouchUp="autoComplete"
+            app:dragDirection="dragRight"/>
+    </Transition>
+</MotionScene>
