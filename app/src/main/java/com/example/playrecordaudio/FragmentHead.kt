@@ -255,6 +255,8 @@ class FragmentHead: Fragment(), getListener {
         val back = dialog_calendar!!.findViewById<ImageView>(R.id.back)
         val textFileUp = dialog_calendar!!.findViewById<TextView>(R.id.textFileUp)
         val textFileDown = dialog_calendar!!.findViewById<TextView>(R.id.textFileDown)
+        val textAlphabetUp = dialog_calendar!!.findViewById<TextView>(R.id.textAlphabetUp)
+        val textAlphabetDown = dialog_calendar!!.findViewById<TextView>(R.id.textAlphabetDown)
         val clear = dialog_calendar!!.findViewById<TextView>(R.id.clear)
         var now_list_month = generateListFileToListMonth(list_all)
         val list_month_all = now_list_month.toTypedArray().clone().toMutableList()
@@ -280,6 +282,16 @@ class FragmentHead: Fragment(), getListener {
 
         textFileDown.setOnClickListener {
             now_list_month = Sort().countFileMonth(now_list_month.toTypedArray().clone().toMutableList(), Sort().DOWN)
+            newListToRecMonth(rec, now_list_month)
+        }
+
+        textAlphabetUp.setOnClickListener {
+            now_list_month = Sort().alphabetMonth(now_list_month.toTypedArray().clone().toMutableList(), Sort().UP)
+            newListToRecMonth(rec, now_list_month)
+        }
+
+        textAlphabetDown.setOnClickListener {
+            now_list_month = Sort().alphabetMonth(now_list_month.toTypedArray().clone().toMutableList(), Sort().DOWN)
             newListToRecMonth(rec, now_list_month)
         }
     }
