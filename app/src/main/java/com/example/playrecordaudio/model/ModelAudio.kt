@@ -4,5 +4,6 @@ class ModelAudio (
     var name: String? = null,
     var id: String? = null,
     var date: String? = null,
-    var path: String? = null
+    var path: String? = null,
+    var avtor_id: Int? = null
 )

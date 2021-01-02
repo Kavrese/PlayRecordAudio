@@ -170,7 +170,6 @@ class FragmentHead: Fragment(), getListener {
                 {
                     if (!activ_double_click_pause){
                         mediaPlayer.seekTo(0)
-                        // mediaPlayer.start()
                         Toast.makeText(requireContext(), "Reset", Toast.LENGTH_LONG).show()
                     }else{
                         mediaPlayer.pause()
@@ -350,8 +349,8 @@ class FragmentHead: Fragment(), getListener {
         for (i in  0..listFiles.size - 1){
             val file = listFiles[i].name
             val name = file.substringBefore("&")
-            val id = file.substringAfter("&")
-            val date = id.substringBefore(".").substring(0, 8)
+            val id = file.substringAfter("&").substringBefore(".")
+            val date = id.substring(0, 8)
             val new_date = SimpleDateFormat("ddMMyyyy").parse(date)
             list_.add(ModelAudio(name, id, SimpleDateFormat("dd.MM.yyyy").format(new_date), listFiles[i].toString()))
         }

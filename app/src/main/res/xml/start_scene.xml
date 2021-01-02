@@ -40,4 +40,16 @@
         android:id="@+id/tra_screen"
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"/>
+    <ConstraintSet android:id="@+id/auth" >
+        <Constraint
+            android:id="@+id/lin_auth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+    </ConstraintSet>
+    <Transition
+        app:constraintSetStart="@+id/end"
+        app:constraintSetEnd="@+id/auth"
+        android:id="@+id/auth"
+        app:duration="1000" />
 </MotionScene>
