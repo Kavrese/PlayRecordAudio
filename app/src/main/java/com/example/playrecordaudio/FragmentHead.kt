@@ -125,23 +125,23 @@ class FragmentHead: Fragment(), getListener {
     }
 
     private fun initMediaPlayer(){
-            if (now_model != null) {
-                mediaPlayer = MediaPlayer.create(requireContext(), Uri.parse(now_model!!.path))
-                seekBar.max = mediaPlayer.duration
-                seekBar.progress = 0
-                mediaPlayer.setOnCompletionListener {
-                    stopPlay()
-                    if (playAll && (positionPlay < list_now.size - 1) ){
-                        positionPlay += 1
-                        now_model = list_now[positionPlay]
-                        initMediaPlayer()
-                        setInfoModelToViews(now_model!!)
-                        play()
-                    }
+        if (now_model != null) {
+            mediaPlayer = MediaPlayer.create(requireContext(), Uri.parse(now_model!!.path))
+            seekBar.max = mediaPlayer.duration
+            seekBar.progress = 0
+            mediaPlayer.setOnCompletionListener {
+                stopPlay()
+                if (playAll && (positionPlay < list_now.size - 1) ){
+                    positionPlay += 1
+                    now_model = list_now[positionPlay]
+                    initMediaPlayer()
+                    setInfoModelToViews(now_model!!)
+                    play()
                 }
-            }else{
-                Toast.makeText(requireContext(), "Выберите файл",Toast.LENGTH_LONG).show()
             }
+        }else{
+            Toast.makeText(requireContext(), "Выберите файл",Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun stopPlay(){
@@ -169,7 +169,7 @@ class FragmentHead: Fragment(), getListener {
                 {
                     if (!activ_double_click_pause){
                         mediaPlayer.seekTo(0)
-                       // mediaPlayer.start()
+                        // mediaPlayer.start()
                         Toast.makeText(requireContext(), "Reset", Toast.LENGTH_LONG).show()
                     }else{
                         mediaPlayer.pause()
