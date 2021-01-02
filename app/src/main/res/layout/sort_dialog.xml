@@ -174,9 +174,9 @@
 
     <ImageView
         android:id="@+id/back"
-        android:visibility="visible"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:padding="5dp"
+        android:visibility="visible"
         app:srcCompat="@drawable/abc_vector_test" />
 </androidx.constraintlayout.motion.widget.MotionLayout>

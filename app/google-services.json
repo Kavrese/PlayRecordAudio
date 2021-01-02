@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "36735085730",
+    "project_id": "playrecordaudio-7bc32",
+    "storage_bucket": "playrecordaudio-7bc32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36735085730:android:eb2087e2343ef5186dfbfb",
+        "android_client_info": {
+          "package_name": "com.example.playrecordaudio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36735085730-vj69jr4df78psfe4lsmd06ca251avkb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPUefcLB9FFuk2-fL9C8xkJ6KGDdIOO3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36735085730-vj69jr4df78psfe4lsmd06ca251avkb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

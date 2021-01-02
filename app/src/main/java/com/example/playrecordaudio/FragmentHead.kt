@@ -350,9 +350,10 @@ class FragmentHead: Fragment(), getListener {
         for (i in  0..listFiles.size - 1){
             val file = listFiles[i].name
             val name = file.substringBefore("&")
-            val date = file.substringAfter("&").substringBefore(".").substring(0, 8)
+            val id = file.substringAfter("&")
+            val date = id.substringBefore(".").substring(0, 8)
             val new_date = SimpleDateFormat("ddMMyyyy").parse(date)
-            list_.add(ModelAudio(name, SimpleDateFormat("dd.MM.yyyy").format(new_date), listFiles[i].toString()))
+            list_.add(ModelAudio(name, id, SimpleDateFormat("dd.MM.yyyy").format(new_date), listFiles[i].toString()))
         }
         return list_
     }

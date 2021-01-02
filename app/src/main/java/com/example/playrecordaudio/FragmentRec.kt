@@ -70,8 +70,10 @@ class FragmentRec: Fragment() {
     }
 
     private fun startRec(): ModelAudio{
-        val date = SimpleDateFormat("ddMMyyyyHHmmss").format(Date())
-        val name_file = "${name.text.toString()}&$date.mp3"
+        val origin_date = Date()
+        val id = SimpleDateFormat("ddMMyyyyHHmmss").format(origin_date)
+        val date = SimpleDateFormat("ddMMyyyyHHmmss").format(origin_date)
+        val name_file = "${name.text.toString()}&$id.mp3"
         val file = File(path_files.absolutePath, name_file)
         try {
             file.createNewFile()
@@ -94,7 +96,7 @@ class FragmentRec: Fragment() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return ModelAudio(name.text.toString(), date, file.toString())
+        return ModelAudio(name.text.toString(), id, date, file.toString())
     }
 
     private fun initRec(){
