@@ -196,27 +196,27 @@ class FragmentHead: Fragment(), getListener {
 
         dateUp.setOnClickListener {
             list_now = Sort().dateFile(list_all.toTypedArray().clone().toMutableList(), Sort().UP)
-            newListToRec(rec, show_checkBox)
+            newListToRecFile(rec, show_checkBox)
         }
 
         dateDown.setOnClickListener {
             list_now = Sort().dateFile(list_all.toTypedArray().clone().toMutableList(), Sort().DOWN)
-            newListToRec(rec, show_checkBox)
+            newListToRecFile(rec, show_checkBox)
         }
 
         clear.setOnClickListener {
             list_now = list_all
-            newListToRec(rec, show_checkBox)
+            newListToRecFile(rec, show_checkBox)
         }
 
         alphabetUp.setOnClickListener {
             list_now = Sort().alphabetFile(list_all.toTypedArray().clone().toMutableList(), Sort().UP)
-            newListToRec(rec, show_checkBox)
+            newListToRecFile(rec, show_checkBox)
         }
 
         alphabetDown.setOnClickListener {
             list_now = Sort().alphabetFile(list_all.toTypedArray().clone().toMutableList(), Sort().DOWN)
-            newListToRec(rec, show_checkBox)
+            newListToRecFile(rec, show_checkBox)
         }
 
         rec.apply {
@@ -233,11 +233,18 @@ class FragmentHead: Fragment(), getListener {
         dialog_sort!!.setCanceledOnTouchOutside(false)
     }
 
-    private fun newListToRec(rec: RecyclerView, show_checkBox: Boolean){
+    private fun newListToRecFile(rec: RecyclerView, show_checkBox: Boolean){
         rec.adapter = AdapterFiles(
             list_now,
             this@FragmentHead,
             show_checkBox
+        )
+    }
+
+    private fun newListToRecMonth(rec: RecyclerView,list: MutableList<ModelMonth>){
+        rec.adapter = AdapterMonth(
+            list,
+            this@FragmentHead
         )
     }
 
@@ -246,12 +253,26 @@ class FragmentHead: Fragment(), getListener {
         dialog_calendar!!.setContentView(R.layout.calendar_dialog)
         val rec = dialog_calendar!!.findViewById<RecyclerView>(R.id.rec_cal)
         val back = dialog_calendar!!.findViewById<ImageView>(R.id.back)
+        val textFileUp = dialog_calendar!!.findViewById<TextView>(R.id.textFileUp)
+        val textFileDown = dialog_calendar!!.findViewById<TextView>(R.id.textFileDown)
+        var now_list_month = generateListFileToListMonth(list_all)
         rec.apply {
-            adapter = AdapterMonth(generateListFileToListMonth(list_all),this@FragmentHead)
+            adapter = AdapterMonth(now_list_month,this@FragmentHead)
             layoutManager = LinearLayoutManager(requireContext())
         }
+
         back.setOnClickListener {
             dialog_calendar!!.hide()
+        }
+
+        textFileUp.setOnClickListener {
+            now_list_month = Sort().countFileMonth(now_list_month.toTypedArray().clone().toMutableList(), Sort().UP)
+            newListToRecMonth(rec, now_list_month)
+        }
+
+        textFileDown.setOnClickListener {
+            now_list_month = Sort().countFileMonth(now_list_month.toTypedArray().clone().toMutableList(), Sort().DOWN)
+            newListToRecMonth(rec, now_list_month)
         }
     }
 

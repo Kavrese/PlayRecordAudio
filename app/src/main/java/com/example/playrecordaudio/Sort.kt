@@ -1,6 +1,7 @@
 package com.example.playrecordaudio
 
 import com.example.playrecordaudio.model.ModelAudio
+import com.example.playrecordaudio.model.ModelMonth
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Arrays
@@ -58,6 +59,36 @@ class Sort {
                 }
                 if (now < min) {
                     min.time = now.time
+                    minPos = j
+                }
+            }
+
+            if (mode == UP){
+                list_res.add(list[minPos])
+                list.removeAt(minPos)
+            }else{
+                list_res.add(list[maxPos])
+                list.removeAt(maxPos)
+            }
+        }
+        return list_res
+    }
+
+    fun countFileMonth(list: MutableList<ModelMonth>, mode: Int): MutableList<ModelMonth>{
+        val list_res: MutableList<ModelMonth> = mutableListOf()
+        for (i in 0 until list.size){
+            var maxPos = 0
+            var minPos = 0
+            var maxCount = 0
+            var minCount = 999
+            for (j in 0 until list.size){
+                val nowCount = list[j].count!!
+                if (nowCount > maxCount){
+                    maxCount = nowCount
+                    maxPos = j
+                }
+                if (nowCount < minCount){
+                    minCount = nowCount
                     minPos = j
                 }
             }
