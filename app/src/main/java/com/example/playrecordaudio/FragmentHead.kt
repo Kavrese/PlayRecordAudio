@@ -255,10 +255,18 @@ class FragmentHead: Fragment(), getListener {
         val back = dialog_calendar!!.findViewById<ImageView>(R.id.back)
         val textFileUp = dialog_calendar!!.findViewById<TextView>(R.id.textFileUp)
         val textFileDown = dialog_calendar!!.findViewById<TextView>(R.id.textFileDown)
+        val clear = dialog_calendar!!.findViewById<TextView>(R.id.clear)
         var now_list_month = generateListFileToListMonth(list_all)
+        val list_month_all = now_list_month.toTypedArray().clone().toMutableList()
+
         rec.apply {
             adapter = AdapterMonth(now_list_month,this@FragmentHead)
             layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        clear.setOnClickListener {
+            now_list_month = list_month_all.toTypedArray().clone().toMutableList()
+            newListToRecMonth(rec, now_list_month)
         }
 
         back.setOnClickListener {

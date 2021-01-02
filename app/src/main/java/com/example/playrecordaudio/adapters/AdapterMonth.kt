@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playrecordaudio.FragmentHead
 import com.example.playrecordaudio.R
@@ -31,7 +32,11 @@ class AdapterMonth(var list: MutableList<ModelMonth>,val activity: FragmentHead)
         holder.name.text = list[position].name_month
         holder.count.text = list[position].count.toString()
         holder.itemView.setOnClickListener {
-            activity.getListClickMonth(list[position].list!!)
+            if (list[position].list!!.size != 0) {
+                activity.getListClickMonth(list[position].list!!)
+            }else{
+                Toast.makeText(activity.context, "Файлы в месяце отсутсвуют !", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
