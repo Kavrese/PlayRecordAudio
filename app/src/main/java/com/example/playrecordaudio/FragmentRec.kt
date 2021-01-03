@@ -48,22 +48,29 @@ class FragmentRec: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //Сейчашняя дата
         date.text = SimpleDateFormat("dd.MM.yyyy").format(Date())
+        //Проверка на сущестование главного пути в локалке
         if (!path_files.exists()) {
             path_files.mkdir()
         }
-
-        initRec()
+        // Начало/Конец записи
         work_rec.setOnClickListener {
+            //Проверка на пустоту имени
             if (name.text.isNotEmpty()) {
+                //Проверка на возможность клика
                 if (click) {
+                    //Если запись шла - останавливаем
                     if (rec) {
                         stopRec()
+                    //Иначе запускаем запись
                     } else {
+                        // Делаем клик на 1/2 секунды не возможным
                         click = false
                         Handler().postDelayed({
                             click = true
                         }, 500)
+                        //Берём сейчашнюю запись
                         saveModel = startRec()
                     }
                 }
@@ -83,22 +90,25 @@ class FragmentRec: Fragment() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
+
+        // Инициализация записи голоса
         initRec()
 
         mediaRecorder.setOutputFile(file.toString())
 
         try {
-            vibrate()
-            mediaRecorder.prepare()
+            vibrate()   //Вибрация
+            mediaRecorder.prepare() //Подготовка к записи
             mediaRecorder.start()
-            work_rec.setImageResource(R.drawable.pause)
+            work_rec.setImageResource(R.drawable.pause) //Меняем вид кнопки
             rec = true
-            saveFile = file
+            saveFile = file     //Указываем файл на сохраненние
         } catch (e: IllegalStateException) {
             e.printStackTrace()
         } catch (e: IOException) {
             e.printStackTrace()
         }
+        //Возрашяем сейчашний файл
         return ModelAudio(name.text.toString(), id, date.text.toString(), file.toString(), InfoUser.avtor_id)
     }
 
@@ -112,11 +122,11 @@ class FragmentRec: Fragment() {
     private fun stopRec(){
         if (rec) {
             mediaRecorder.stop()
-            mediaRecorder.release()
-            work_rec.setImageResource(R.drawable.micro)
+            mediaRecorder.release() //Перезапускаем
+            work_rec.setImageResource(R.drawable.micro)     //Меняем вид кнопки
             rec = false
-            vibrate()
-            toSave(saveFile!!)
+            vibrate()       //Вибрация
+            toSave(saveFile!!)      //На сохранение
         }
     }
 
@@ -126,12 +136,16 @@ class FragmentRec: Fragment() {
     }
 
     private fun toSave(file: File){
+        //Диалог для потвержденния записанного
         val dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.save)
+        //Если пользователь хочет сохранить
         dialog.save.setOnClickListener {
+            //Убираем диалог
             dialog.dismiss()
+            //Убараем название файла из поля
             name.setText("")
-
+            //Сохраняем в базе
             FirebaseDatabase.getInstance().reference.child("files").child(saveModel!!.id.toString()).setValue(saveModel
             ) { _: DatabaseError?, _: DatabaseReference ->
                 Toast.makeText(requireContext(), "Сохраненно", Toast.LENGTH_SHORT).show()
@@ -140,14 +154,19 @@ class FragmentRec: Fragment() {
         val date_: TextView = dialog.findViewById(R.id.date_dialog)
         val name_: TextView = dialog.findViewById(R.id.name_dialog)
         val play : ImageView = dialog.findViewById(R.id.play_save)
+        //Поля для текста
         date_.text = date.text.toString()
         name_.text = name.text.toString()
+        //Если ползователь не хочет сохранять
         dialog.close.setOnClickListener {
+            //Удаляем аудио файл
             if (file.exists()) {
                 file.delete()
             }
+            //Закрываем диалог
             dialog.dismiss()
         }
+        //Для воспроизводства записанного
         mediaPlayer = MediaPlayer.create(requireContext(), Uri.parse(saveModel!!.path))
         mediaPlayer.setOnCompletionListener {
             reset()
@@ -162,6 +181,7 @@ class FragmentRec: Fragment() {
                 play.setImageResource(R.drawable.play)
             }
         }
+        //Клик вне диалога запрещённ
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
@@ -179,7 +199,7 @@ class FragmentRec: Fragment() {
     private fun reset(){
         try {
             isPlay = false
-            mediaPlayer.seekTo(0)
+            mediaPlayer.seekTo(0)       //В начало записи
         }catch (t: Throwable) {
             if (t.message != "") {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()

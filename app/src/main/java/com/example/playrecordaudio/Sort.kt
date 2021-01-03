@@ -5,10 +5,11 @@ import com.example.playrecordaudio.model.ModelMonth
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Arrays
-
+//Класс методов сортировки
 class Sort {
     val UP = 0
     val DOWN = 1
+    //По алфавиту файлов
     fun alphabetFile (list: MutableList<ModelAudio>, mode: Int): MutableList<ModelAudio>{
         var list_string = mutableListOf<String>()
         val list_res = mutableListOf<ModelAudio>()
@@ -39,7 +40,7 @@ class Sort {
             return list_res_reversed
         }
     }
-
+    //По дате файлов
     fun dateFile(list: MutableList<ModelAudio>, mode: Int): MutableList<ModelAudio>{
         val formartSim = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         val list_res = mutableListOf<ModelAudio>()
@@ -73,7 +74,7 @@ class Sort {
         }
         return list_res
     }
-
+    //По кол-во файлов в месяце
     fun countFileMonth(list: MutableList<ModelMonth>, mode: Int): MutableList<ModelMonth>{
         val list_res: MutableList<ModelMonth> = mutableListOf()
         for (i in 0 until list.size){
@@ -103,7 +104,7 @@ class Sort {
         }
         return list_res
     }
-
+    //По алфавиту месяцев
     fun alphabetMonth (list: MutableList<ModelMonth>, mode: Int): MutableList<ModelMonth>{
         var list_string = mutableListOf<String>()
         val list_res = mutableListOf<ModelMonth>()

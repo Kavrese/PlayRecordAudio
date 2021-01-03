@@ -42,13 +42,16 @@ class MainActivity : AppCompatActivity(){
                     lin_main.setTransition(R.id.auth)
                     lin_main.transitionToEnd()
                 }
+                //Получаем имя пользователя
                 val name = FirebaseAuth.getInstance().currentUser!!.email!!.substringBefore("@")
+                //По имени получаем его id_avtor
                 FirebaseDatabase.getInstance().reference.child("users").child(name).child("id").addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onCancelled(error: DatabaseError) {
                         Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_LONG).show()
                     }
 
                     override fun onDataChange(snapshot: DataSnapshot) {
+                        //Заполняем данные об пользователе
                         InfoUser.name = name
                         InfoUser.avtor_id = snapshot.getValue(Int::class.java)
                     }
@@ -63,8 +66,10 @@ class MainActivity : AppCompatActivity(){
             val email = email.text.toString()
             if (pass.length >= 6){
                 if ("@" in email){
+                    //Вход через почту и пароль
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, pass)
                         .addOnCompleteListener {
+                            //Если удачно запускаем анимацию
                             lin_main.transitionToStart()
                         }
                         .addOnCanceledListener {
@@ -114,16 +119,20 @@ class MainActivity : AppCompatActivity(){
     }
     //Метод проверки разрешений
     private fun checkAllPer(): Boolean{
+        //Разрешенние на Запись Аудио
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.RECORD_AUDIO), 0)
         }
+        //Разрешенние на Запись Файлов
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
         }
+        //Разрешенние на Чтение Файлов
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 2)
         }
 
+        //Возращаем результат всех проверок
         return (ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
