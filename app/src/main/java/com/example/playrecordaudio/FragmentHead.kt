@@ -419,6 +419,7 @@ class FragmentHead: Fragment(), getListener {
     }
 
     //Метод автоматического взятия и сравнения файлов bd и local
+    //lsit - лист в который нужно складывать нормальные файлы
     private fun autoStartInstallFireBaseFiles(local_files: MutableList<ModelAudio>, list: MutableList<ModelAudio>){
         //Получаем файлы
         FirebaseDatabase.getInstance().reference.child("files").addListenerForSingleValueEvent(object : ValueEventListener{
@@ -452,7 +453,7 @@ class FragmentHead: Fragment(), getListener {
                 }
             }
             if (!find){
-                //Если файл не нашди в firebase, то в лист удаления
+                //Если файл не нашли в firebase, то в лист удаления
                 list_to_delete.add(i)
             }
         }
@@ -465,6 +466,7 @@ class FragmentHead: Fragment(), getListener {
             dialog.delete.setOnClickListener {
                 //Удаляем эти файлы
                 deleteFromList(list_to_delete)
+                //Обнавляем сейчашний лист
                 list_now_play = list.toTypedArray().clone().toMutableList()
                 dialog.dismiss()
             }
@@ -474,10 +476,13 @@ class FragmentHead: Fragment(), getListener {
                     list.add(i)
                 }
                 dialog.dismiss()
+                //Обнавляем сейчашний лист
                 list_now_play = list.toTypedArray().clone().toMutableList()
             }
             dialog.show()
         }
+        //Обнавляем сейчашний лист
+        list_now_play = list.toTypedArray().clone().toMutableList()
     }
 
     // Метод удаление файлов из листа
