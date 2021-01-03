@@ -13,6 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.playrecordaudio.model.ModelAudio
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 
@@ -41,6 +45,18 @@ class MainActivity : AppCompatActivity(){
                     lin_main.setTransition(R.id.auth)
                     lin_main.transitionToEnd()
                 }
+                val name = FirebaseAuth.getInstance().currentUser!!.email!!.substringBefore("@")
+                FirebaseDatabase.getInstance().reference.child("users").child(name).child("id").addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        InfoUser.name = name
+                        InfoUser.avtor_id = snapshot.getValue(Int::class.java)
+                    }
+
+                })
             }, 1200)
 
         }, 3000)
@@ -92,6 +108,7 @@ class MainActivity : AppCompatActivity(){
             main = true
         }else{
             //Выходим из приложенния с анимацией
+            lin_main.setTransition(R.id.tra_screen)
             lin_main.transitionToStart()
             Handler().postDelayed({
                 exitProcess(1)

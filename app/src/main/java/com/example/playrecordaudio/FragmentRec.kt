@@ -17,6 +17,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.playrecordaudio.model.ModelAudio
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_rec.*
 import kotlinx.android.synthetic.main.save.*
 import java.io.File
@@ -72,7 +76,6 @@ class FragmentRec: Fragment() {
     private fun startRec(): ModelAudio{
         val origin_date = Date()
         val id = SimpleDateFormat("ddMMyyyyHHmmss").format(origin_date)
-        val date = SimpleDateFormat("ddMMyyyyHHmmss").format(origin_date)
         val name_file = "${name.text.toString()}&$id.mp3"
         val file = File(path_files.absolutePath, name_file)
         try {
@@ -96,7 +99,7 @@ class FragmentRec: Fragment() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return ModelAudio(name.text.toString(), id, date, file.toString())
+        return ModelAudio(name.text.toString(), id, date.text.toString(), file.toString(), InfoUser.avtor_id)
     }
 
     private fun initRec(){
@@ -128,6 +131,11 @@ class FragmentRec: Fragment() {
         dialog.save.setOnClickListener {
             dialog.dismiss()
             name.setText("")
+
+            FirebaseDatabase.getInstance().reference.child("files").child(saveModel!!.id.toString()).setValue(saveModel
+            ) { _: DatabaseError?, _: DatabaseReference ->
+                Toast.makeText(requireContext(), "Сохраненно", Toast.LENGTH_SHORT).show()
+            }
         }
         val date_: TextView = dialog.findViewById(R.id.date_dialog)
         val name_: TextView = dialog.findViewById(R.id.name_dialog)

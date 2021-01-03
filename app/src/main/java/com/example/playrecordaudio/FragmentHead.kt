@@ -17,7 +17,11 @@ import com.example.playrecordaudio.adapters.AdapterFiles
 import com.example.playrecordaudio.adapters.AdapterMonth
 import com.example.playrecordaudio.model.ModelAudio
 import com.example.playrecordaudio.model.ModelMonth
-import kotlinx.android.synthetic.main.calendar_dialog.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.delete_file_dialog.*
 import kotlinx.android.synthetic.main.fragment_head.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -57,8 +61,7 @@ class FragmentHead: Fragment(), getListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        list_all = getLocalFiles()
-        list_now = list_all
+        autoStartInstallFireBaseFiles(getLocalFiles(), list_all)
         work_img.setOnClickListener {
             if (now_model != null) {
                 if (isPlay) {
@@ -355,6 +358,67 @@ class FragmentHead: Fragment(), getListener {
             list_.add(ModelAudio(name, id, SimpleDateFormat("dd.MM.yyyy").format(new_date), listFiles[i].toString()))
         }
         return list_
+    }
+
+    private fun autoStartInstallFireBaseFiles(local_files: MutableList<ModelAudio>, list: MutableList<ModelAudio>){
+        FirebaseDatabase.getInstance().reference.child("files").addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val firebase_files: MutableList<ModelAudio> = mutableListOf()
+                for (sn: DataSnapshot in snapshot.children){
+                    firebase_files.add(sn.getValue(ModelAudio::class.java)!!)
+                }
+                synFireBaseAndLocalFiles(local_files, firebase_files, list)
+            }
+        })
+    }
+
+    private fun synFireBaseAndLocalFiles(local_files: MutableList<ModelAudio>, firebase_files: MutableList<ModelAudio>, list: MutableList<ModelAudio>){
+        val list_to_delete = mutableListOf<ModelAudio>()
+        for (i in local_files){
+            var find = false
+            for (j in firebase_files){
+                if (i.path == j.path){
+                    find = true
+                    list.add(i)
+                    break
+                }
+            }
+            if (!find){
+                list_to_delete.add(i)
+            }
+        }
+        if (list_to_delete.size != 0){
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.delete_file_dialog)
+            dialog.delete.setOnClickListener {
+                deleteFromList(list_to_delete)
+                list_now = list.toTypedArray().clone().toMutableList()
+                dialog.dismiss()
+            }
+            dialog.close.setOnClickListener {
+                for (i in list_to_delete){
+                    list.add(i)
+                }
+                dialog.dismiss()
+                list_now = list.toTypedArray().clone().toMutableList()
+            }
+            dialog.show()
+        }
+    }
+
+    private fun deleteFromList (list_to_delete: MutableList<ModelAudio>){
+        for (i in list_to_delete){
+            val file = i.path
+            if(File(file!!).exists()){
+                File(file).delete()
+            }else{
+                Toast.makeText(requireContext(), "Error delete path $file", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun setInfoModelToViews (model: ModelAudio){

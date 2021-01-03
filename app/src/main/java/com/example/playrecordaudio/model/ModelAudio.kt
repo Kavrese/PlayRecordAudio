@@ -1,5 +1,7 @@
 package com.example.playrecordaudio.model
 
+import com.example.playrecordaudio.InfoUser
+
 class ModelAudio (
     var name: String? = null,
     var id: String? = null,
