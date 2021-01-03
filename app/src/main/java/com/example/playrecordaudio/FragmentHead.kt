@@ -52,7 +52,7 @@ class FragmentHead: Fragment(), getListener {
 
     override fun getModelFromSortDialog(model: ModelAudio) {
         if (isPlay) {
-            stopPlay()
+            afterStopPlay()
         }
         dialog_sort!!.hide()
         now_model = model
@@ -73,10 +73,12 @@ class FragmentHead: Fragment(), getListener {
                 Toast.makeText(requireContext(), "Выберите файл (см. Воспроизвести всё)",Toast.LENGTH_LONG).show()
             }
         }
+
         filter.setOnClickListener {
             initSortDialog(false)
             dialog_sort!!.show()
         }
+
         seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 if (now_model != null){
@@ -109,8 +111,12 @@ class FragmentHead: Fragment(), getListener {
         }
 
         show_all.setOnClickListener {
-            list_now = list_all
-            startPlayMN()
+            if (!playAll) {
+                list_now = list_all
+                startPlayMN()
+            }else{
+                Toast.makeText(requireContext(), "Уже играет", Toast.LENGTH_SHORT).show()
+            }
         }
 
         calendar.setOnClickListener {
@@ -134,7 +140,7 @@ class FragmentHead: Fragment(), getListener {
             seekBar.max = mediaPlayer.duration
             seekBar.progress = 0
             mediaPlayer.setOnCompletionListener {
-                stopPlay()
+                afterStopPlay()
                 if (playAll && (positionPlay < list_now.size - 1) ){
                     positionPlay += 1
                     now_model = list_now[positionPlay]
@@ -148,11 +154,23 @@ class FragmentHead: Fragment(), getListener {
         }
     }
 
-    private fun stopPlay(){
+    private fun afterStopPlay(){
         try {
             isPlay = false
             work_img.setImageResource(R.drawable.play)
             mediaPlayer.seekTo(0)
+        }catch (t: Throwable) {
+            if (t.message != "") {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun stopPLay (){
+        try {
+            isPlay = false
+            work_img.setImageResource(R.drawable.play)
+            mediaPlayer.stop()
         }catch (t: Throwable) {
             if (t.message != "") {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
